@@ -1,5 +1,5 @@
 const { Router } = require("express");
-const { flightModel } = require("../models/flight.model");
+const { flightModel } = require("../models/Flight.model");
 const flightsRouter = Router();
 
 flightsRouter.get("/", async (req, res) => {
