@@ -19,7 +19,7 @@ flightsRouter.post("/create", async (req, res) => {
     price,
   });
   await new_flight.save();
-  res.send("New flight added");
+  res.status(200).send("New flight added");
 });
 
 flightsRouter.put("/edit/:flightId", async (req, res) => {

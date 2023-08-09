@@ -18,7 +18,7 @@ hotelsRouter.post("/create", async (req, res) => {
     address,
   });
   await new_hotels.save();
-  res.send("New hotel added");
+  res.status(200).send("New hotel added");
 });
 
 hotelsRouter.put("/edit/:hotelId", async (req, res) => {

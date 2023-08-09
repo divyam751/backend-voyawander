@@ -16,7 +16,7 @@ destinationRouter.post("/create", async (req, res) => {
     days,
   });
   await new_destination.save();
-  res.send("New Destinations added");
+  res.status(200).send("New Destinations added");
 });
 
 destinationRouter.put("/edit/:destinationId", async (req, res) => {
