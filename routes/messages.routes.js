@@ -1,13 +1,43 @@
 const { Router } = require("express");
+const { messageModel } = require("../models/message.model");
 
 const messagesRouter = Router();
 
-messagesRouter.get("/", (req, res) => {
-  res.send("messages data");
+messagesRouter.get("/", async (req, res) => {
+  const message = await messageModel.find();
+  res.status(200).send(message);
 });
 
-messagesRouter.delete("/delete/:messageId", (req, res) => {
-  res.send("Delete messages data");
+messagesRouter.post("/create", async (req, res) => {
+  const { name, email, message } = req.body;
+  const new_message = new messageModel({
+    name,
+    email,
+    message,
+  });
+  await new_message.save();
+  res.send("New message added");
+});
+
+messagesRouter.delete("/delete/:messageId", async (req, res) => {
+  const messageId = req.params.messageId;
+
+  try {
+    const deletedmessage = await messageModel.findByIdAndDelete(messageId);
+
+    if (!deletedmessage) {
+      return res.status(404).send({ msg: `messages ${messageId} not found` });
+    }
+
+    res.status(200).send({
+      msg: `messages ${messageId} deleted`,
+    });
+  } catch (error) {
+    console.error("Error deleting message:", error);
+    res
+      .status(500)
+      .send({ msg: "An error occurred while deleting the message" });
+  }
 });
 
 module.exports = { messagesRouter };

@@ -43,7 +43,7 @@ hotelsRouter.delete("/delete/:hotelId", async (req, res) => {
   const hotelId = req.params.hotelId;
 
   try {
-    const deletedhotel = await hotelsModel.findByIdAndDelete(hotelId);
+    const deletedhotel = await hotelModel.findByIdAndDelete(hotelId);
 
     if (!deletedhotel) {
       return res.status(404).send({ msg: `hotels ${hotelId} not found` });
