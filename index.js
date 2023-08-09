@@ -1,7 +1,15 @@
 const express = require("express");
+const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
+require("dotenv").config();
 
 const { connection } = require("./config/db");
-const { UserModel } = require("./models/User.model");
+const { UserModel } = require("./models/User.module.js");
+const { destinationRouter } = require("./routes/destinations.routes.js");
+const { hotelsRouter } = require("./routes/hotels.routes.js");
+const { flightsRouter } = require("./routes/flights.routes.js");
+const { messagesRouter } = require("./routes/messages.routes.js");
+const { bookingRouter } = require("./routes/booking.routes.js");
 
 const app = express();
 app.use(express.json());
@@ -32,12 +40,32 @@ app.post("/signup", async (req, res) => {
         .status(500)
         .send({ msg: "Something went wrong please try again later" });
     }
-
-    res.send({ msg: "signup Successful" });
   });
 });
 
-app.post("./login");
+app.post("/signin", async (req, res) => {
+  const { email, password } = req.body;
+  const user = await UserModel.findOne({ email });
+  if (!user) {
+    res.status(404).send({ msg: "User not found , please signup first" });
+  } else {
+    const hashed_password = user.password;
+    bcrypt.compare(password, hashed_password, function (err, result) {
+      if (result) {
+        let token = jwt.sign({ user_id: user._id }, process.env.SECRET_KEY);
+        res.status(200).send({ msg: "Login successful", token: token });
+      } else {
+        res.status(401).send({ msg: " Login failed, invalid credentials" });
+      }
+    });
+  }
+});
+
+app.use("/destinations", destinationRouter);
+app.use("/hotels", hotelsRouter);
+app.use("/flights", flightsRouter);
+app.use("/messages", messagesRouter);
+app.use("/booking", bookingRouter);
 
 app.listen(8000, async () => {
   try {
