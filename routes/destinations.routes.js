@@ -4,9 +4,26 @@ const { destinationModel } = require("../models/destination.model");
 const destinationRouter = Router();
 
 destinationRouter.get("/", async (req, res) => {
-  const destinations = await destinationModel.find();
-  res.status(200).send(destinations);
+  const { search } = req.query;
+
+  try {
+    let query = {};
+
+    if (search) {
+      const searchRegex = new RegExp(search, "i");
+      query = { name: searchRegex };
+    }
+
+    const destinations = await destinationModel.find(query);
+    res.status(200).send(destinations);
+  } catch (error) {
+    console.error("Error fetching destinations:", error);
+    res
+      .status(500)
+      .send({ msg: "An error occurred while fetching destinations" });
+  }
 });
+
 destinationRouter.post("/create", async (req, res) => {
   const { name, price, image, days } = req.body;
   const new_destination = new destinationModel({
