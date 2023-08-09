@@ -12,7 +12,6 @@ This documentation provides developers with information on how to interact with 
   - [Messages](#messages)
 - [Searching](#searching)
 - [Example Usage](#example-usage)
-- [Contributing](#contributing)
 
 ## Introduction
 
