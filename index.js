@@ -12,6 +12,7 @@ const { flightsRouter } = require("./routes/flights.routes.js");
 const { messagesRouter } = require("./routes/messages.routes.js");
 const { bookingRouter } = require("./routes/booking.routes.js");
 const { authentication } = require("./middleware/authentication");
+const { placeRouter } = require("./routes/places.routes");
 
 const app = express();
 
@@ -75,6 +76,7 @@ app.post("/login", async (req, res) => {
 
 // Other API Routes
 app.use("/destinations", destinationRouter);
+app.use("/places", placeRouter);
 app.use("/hotels", hotelsRouter);
 app.use("/flights", flightsRouter);
 app.use("/messages", authentication, messagesRouter);
