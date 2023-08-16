@@ -32,20 +32,18 @@ app.get("/", (req, res) => {
 
 // Signup and Login Routes
 app.post("/signup", async (req, res) => {
-  const { name, email, password, age, phone_number } = req.body;
+  const { name, email, password } = req.body;
 
   bcrypt.hash(password, 3, async function (err, hash) {
     const new_user = new UserModel({
       name,
       email,
       password: hash,
-      age,
-      phone_number,
     });
 
     try {
       await new_user.save();
-      res.status(200).send({ msg: "Signup successfully" });
+      res.status(200).send({ msg: "Signup successfully", status: 200 });
     } catch (err) {
       console.log("Error while storing data in db");
       console.log(err);
@@ -60,15 +58,21 @@ app.post("/login", async (req, res) => {
   const { email, password } = req.body;
   const user = await UserModel.findOne({ email });
   if (!user) {
-    res.status(404).send({ msg: "User not found , please signup first" });
+    res
+      .status(404)
+      .send({ msg: "User not found , please signup first", status: 404 });
   } else {
     const hashed_password = user.password;
     bcrypt.compare(password, hashed_password, function (err, result) {
       if (result) {
         let token = jwt.sign({ user_id: user._id }, process.env.SECRET_KEY);
-        res.status(200).send({ msg: "Login successful", token: token });
+        res
+          .status(200)
+          .send({ msg: "Login successful", token: token, status: 200 });
       } else {
-        res.status(401).send({ msg: " Login failed, invalid credentials" });
+        res
+          .status(401)
+          .send({ msg: " Login failed, invalid credentials", status: 401 });
       }
     });
   }
