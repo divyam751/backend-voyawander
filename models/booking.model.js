@@ -1,33 +1,35 @@
 const mongoose = require("mongoose");
 
 const bookingSchema = new mongoose.Schema({
+  ArrivalTime: { type: String },
+  DepartureDestination: { type: String },
+  DepartureTime: { type: String },
+  FlightLogo: { type: String },
+  FlightName: { type: String },
+  FlightNumber: { type: String },
+  FlightPrice: { type: Number },
+  HotelDescription: { type: String },
+  HotelImage: { type: String },
+  HotelLocation: { type: String },
+  HotelName: { type: String },
+  HotelPrice: { type: Number },
+  HotelRating: { type: String },
+  HotelStars: { type: Number },
+  HotelTax: { type: Number },
+  ReviewRating: { type: Number },
+  TotalTime: { type: String },
+  address: { type: String },
+  adharNumber: { type: String },
+  bookingAge: { type: Number },
+  bookingGender: { type: String },
+  bookingName: { type: String },
+  imageURL: { type: String },
+  numTickets: { type: Number },
   placeName: { type: String },
-  placePrice: { type: String },
-  placeImage: { type: String },
-  days: { type: String },
-  id: { type: String },
-  hotelName: { type: String },
-  hotelPrice: { type: String },
-  hotelImage: { type: String },
-  hotelRating: { type: String },
-  hotelDays: { type: String },
-  flightName: { type: String },
-  flightPrice: { type: String },
-  flightImage: { type: String },
-  departureTime: { type: String },
-  landingTime: { type: String },
-  formName: { type: String },
-  formAge: { type: String },
-  formGender: { type: String },
-  married: { type: String },
-  formAddress: { type: String },
-  aadharCard: { type: String },
-  numTickets: { type: String },
+  price: { type: Number },
+  tripDuration: { type: String },
 });
 
 const bookingModel = mongoose.model("booking", bookingSchema);
 
 module.exports = { bookingModel };
-
-
-

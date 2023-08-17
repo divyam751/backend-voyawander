@@ -83,8 +83,8 @@ app.use("/destinations", destinationRouter);
 app.use("/places", placeRouter);
 app.use("/hotels", hotelsRouter);
 app.use("/flights", flightsRouter);
+app.use("/booking", bookingRouter);
 app.use("/messages", authentication, messagesRouter);
-app.use("/booking", authentication, bookingRouter);
 
 //Server PORT
 app.listen(8000, async () => {
