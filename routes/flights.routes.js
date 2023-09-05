@@ -8,15 +8,25 @@ flightsRouter.get("/", async (req, res) => {
 });
 
 flightsRouter.post("/create", async (req, res) => {
-  const { image, flightName, departureTime, landingTime, totalTime, price } =
-    req.body;
+  const {
+    FlightLogo,
+    FlightName,
+    FlightNumber,
+    DepartureTime,
+    DepartureDestination,
+    ArrivalTime,
+    TotalTime,
+    FlightPrice,
+  } = req.body;
   const new_flight = new flightModel({
-    image,
-    flightName,
-    departureTime,
-    landingTime,
-    totalTime,
-    price,
+    FlightLogo,
+    FlightName,
+    FlightNumber,
+    DepartureTime,
+    DepartureDestination,
+    ArrivalTime,
+    TotalTime,
+    FlightPrice,
   });
   await new_flight.save();
   res.status(200).send("New flight added");
@@ -29,7 +39,7 @@ flightsRouter.put("/edit/:flightId", async (req, res) => {
   try {
     const updatedFlight = await flightModel.findByIdAndUpdate(
       flightId,
-      payload
+      payload,
     );
 
     if (!updatedFlight) {

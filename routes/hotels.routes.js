@@ -8,14 +8,27 @@ hotelsRouter.get("/", async (req, res) => {
 });
 
 hotelsRouter.post("/create", async (req, res) => {
-  const { name, image, room_price, rating, facilities, address } = req.body;
+  const {
+    HotelImage,
+    HotelStars,
+    HotelRating,
+    ReviewRating,
+    HotelName,
+    HotelLocation,
+    HotelDescription,
+    HotelPrice,
+    HotelTax,
+  } = req.body;
   const new_hotels = new hotelModel({
-    name,
-    image,
-    room_price,
-    rating,
-    facilities,
-    address,
+    HotelImage,
+    HotelStars,
+    HotelRating,
+    ReviewRating,
+    HotelName,
+    HotelLocation,
+    HotelDescription,
+    HotelPrice,
+    HotelTax,
   });
   await new_hotels.save();
   res.status(200).send("New hotel added");

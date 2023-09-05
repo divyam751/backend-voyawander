@@ -1,12 +1,15 @@
 const mongoose = require("mongoose");
 
 const hotelSchema = new mongoose.Schema({
-  name: { type: String, require: true },
-  image: { type: String, require: true },
-  room_price: { type: Number, require: true },
-  rating: { type: Number, require: true },
-  facilities: { type: [String], require: true },
-  address: { type: String, require: true },
+  HotelImage: { type: String, require: true },
+  HotelStars: { type: Number, require: true },
+  HotelRating: { type: String, require: true },
+  ReviewRating: { type: Number, require: true },
+  HotelName: { type: String, require: true },
+  HotelLocation: { type: String, require: true },
+  HotelDescription: { type: String, require: true },
+  HotelPrice: { type: Number, require: true },
+  HotelTax: { type: Number, require: true },
 });
 
 const hotelModel = mongoose.model("hotel", hotelSchema);
