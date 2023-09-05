@@ -11,6 +11,7 @@ const { hotelsRouter } = require("./routes/hotels.routes.js");
 const { flightsRouter } = require("./routes/flights.routes.js");
 const { messagesRouter } = require("./routes/messages.routes.js");
 const { bookingRouter } = require("./routes/booking.routes.js");
+const { paymentRouter } = require("./routes/payment.routes.js");
 const { authentication } = require("./middleware/authentication");
 const { placeRouter } = require("./routes/places.routes");
 
@@ -23,7 +24,7 @@ app.use(express.json());
 app.use(
   cors({
     origin: "*",
-  })
+  }),
 );
 
 app.get("/", (req, res) => {
@@ -77,6 +78,33 @@ app.post("/login", async (req, res) => {
     });
   }
 });
+app.post("/otp", async (req, res) => {
+  const { email, password } = req.body;
+  const user = await UserModel.findOne({ email });
+  const otp = Math.floor(Math.random() * 9000 + 1000);
+  if (!user) {
+    res
+      .status(404)
+      .send({ msg: "User not found , please signup first", status: 404 });
+  } else {
+    const hashed_password = user.password;
+    bcrypt.compare(password, hashed_password, function (err, result) {
+      if (result) {
+        let token = jwt.sign({ user_id: user._id }, process.env.SECRET_KEY);
+        res.status(200).send({
+          msg: "OTP Sent successful",
+          token: token,
+          status: 200,
+          OTP: otp,
+        });
+      } else {
+        res
+          .status(401)
+          .send({ msg: " Login failed, invalid credentials", status: 401 });
+      }
+    });
+  }
+});
 
 // Other API Routes
 app.use("/destinations", destinationRouter);
@@ -84,6 +112,7 @@ app.use("/places", placeRouter);
 app.use("/hotels", hotelsRouter);
 app.use("/flights", flightsRouter);
 app.use("/booking", bookingRouter);
+app.use("/payment", paymentRouter);
 app.use("/messages", authentication, messagesRouter);
 
 //Server PORT

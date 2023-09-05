@@ -66,7 +66,7 @@ bookingRouter.post("/create", async (req, res) => {
     tripDuration,
   });
   await new_booking.save();
-  res.status(200).send({ msg: "New booking added" });
+  res.status(200).send({ msg: "New booking added", status: 200 });
 });
 
 module.exports = { bookingRouter };
