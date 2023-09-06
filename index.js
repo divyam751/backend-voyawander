@@ -113,7 +113,7 @@ app.use("/hotels", hotelsRouter);
 app.use("/flights", flightsRouter);
 app.use("/booking", bookingRouter);
 app.use("/payment", paymentRouter);
-app.use("/messages", authentication, messagesRouter);
+app.use("/messages", messagesRouter);
 
 //Server PORT
 app.listen(8000, async () => {

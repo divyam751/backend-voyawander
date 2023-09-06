@@ -43,7 +43,7 @@ destinationRouter.put("/edit/:destinationId", async (req, res) => {
   try {
     const updatedDestination = await destinationModel.findByIdAndUpdate(
       destinationId,
-      payload
+      payload,
     );
 
     if (!updatedDestination) {
@@ -66,7 +66,7 @@ destinationRouter.delete("/delete/:destinationId", async (req, res) => {
 
   try {
     const deletedDestination = await destinationModel.findByIdAndDelete(
-      destinationId
+      destinationId,
     );
 
     if (!deletedDestination) {

@@ -16,7 +16,7 @@ messagesRouter.post("/create", async (req, res) => {
     message,
   });
   await new_message.save();
-  res.status(200).send("New message added");
+  res.status(200).send({ msg: "Message sent successful", status: 200 });
 });
 
 messagesRouter.delete("/delete/:messageId", async (req, res) => {
