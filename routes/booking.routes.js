@@ -1,5 +1,5 @@
 const { Router } = require("express");
-const { bookingModel } = require("../models/Booking.model");
+const { bookingModel } = require("../models/booking.model");
 const bookingRouter = Router();
 
 bookingRouter.get("/", async (req, res) => {

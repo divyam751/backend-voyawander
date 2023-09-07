@@ -1,5 +1,5 @@
 const { Router } = require("express");
-const { messageModel } = require("../models/Message.model");
+const { messageModel } = require("../models/message.model");
 
 const messagesRouter = Router();
 
