@@ -1,7 +1,7 @@
 {
   "name": "backend-voyawander",
   "version": "1.0.0",
-  "description": "",
+  "description": "This documentation provides developers with information on how to interact with the backend API endpoints, routes, and utilize the searching functionality for the Voyawander travel website's frontend.",
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
@@ -25,5 +25,6 @@
     "express": "^4.18.2",
     "jsonwebtoken": "^9.0.1",
     "mongoose": "^7.4.2"
-  }
+  },
+  "devDependencies": {}
 }
