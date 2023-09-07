@@ -9,9 +9,9 @@ messagesRouter.get("/", async (req, res) => {
 });
 
 messagesRouter.post("/create", async (req, res) => {
-  const { name, email, message } = req.body;
+  const { mobile, email, message } = req.body;
   const new_message = new messageModel({
-    name,
+    mobile,
     email,
     message,
   });
